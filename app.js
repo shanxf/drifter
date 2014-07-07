@@ -5,6 +5,7 @@ var favicon = require('static-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var mongodb = require('./models/mongodb');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -46,9 +47,17 @@ app.get('/', function (req, res) {
   };
   redis.pick(req.query, function (result) {
     res.json(result);
+    if (result.code === 1) {
+      mongodb.save(req.query.user, result.msg);
+    };
   });
 });
-
+//将捡到的漂流瓶扔到海里
+app.post('/back', function (req, res) {
+  redis.throwBack(req.body, function (result) {
+    res.json(result);
+  });
+});
 
 app.use('/', routes);
 app.use('/users', users);
