@@ -1,26 +1,29 @@
 var request = require('../node_modules/request');
-
-for (var i = 1; i <= 5; i++) {
-  (function (i) {
-  	request.post({
-  	  url: "http://127.0.0.1:3000",
-  	  json: {
-  	    "owner": "bottle" + i,
-  	    "type": "male",
-  	    "content": "content" + i
-  	});
-  })(i);
-};
-
+/*request 请求限制5次，两个for分别执行*/
+/*
+for (var j = 1; j <= 5; j++) {
+  (function (j) {
+    request.post({
+      url: "http://127.0.0.1:3000",
+      json: {
+        "owner": "bottle" +j,
+        "type": "male",
+        "content": "content" +j
+      }
+    });
+  })(j);
+}
+*/
 for (var i = 6; i <= 10; i++) {
   (function (i) {
   	request.post({
-  	  url: "http://127.0.0.1:3000",
-  	  json: {
-  	    "owner": "bottle" + i,
-  	    "type": "female",
-  	    "content": "content" + i
-  	  }
-  	});
+      url: "http://127.0.0.1:3000",
+      json: {
+        "owner": "bottle" +i,
+        "type": "female",
+        "content": "content" +i
+      }
+    }); 
   })(i);
-};
+}
+
